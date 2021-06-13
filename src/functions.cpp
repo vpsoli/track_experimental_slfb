@@ -72,6 +72,26 @@ void imadjust(Mat& src,Mat& dst, int tol, Vec2i in, Vec2i out){
 		}
 	}
 }
+void wienerFilter(Mat& src,Mat& dst, const Size& kernel_size, double noise_intesity){
+
+	Mat1f filtered_src,
+		  sq_box_filtered_src,
+		  variance;
+	src.copyTo(dst);
+
+	/*
+	boxFilter(src, filtered_src, CV_64F, kernel_size, Point(-1,-1),true);
+	sqrBoxFilter(src, sq_box_filtered_src, CV_64F, kernel_size, Point(-1,-1), true, BORDER_REPLICATE);
+	variance = sq_box_filtered_src - filtered_src.mul(filtered_src);
+
+	if(noise_intesity == -1.0){
+		reduce(variance, variance, 1, REDUCE_SUM, -1);
+		reduce(variance, variance, 0, REDUCE_SUM, -1);
+		noise_intesity = variance.at<float>(0,0);
+	}*/
+	cout<< noise_intesity;
+
+}
 /*void imwiener(){
 
 }*/

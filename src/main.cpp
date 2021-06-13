@@ -7,7 +7,7 @@ using namespace std;
 
 int main(){
 
-	Mat src, I1, I2, I3, I4;
+	Mat src, I1, I2, I3, I4, I5;
 	//image input
 
 	string path = samples::findFile("input/1.jpg");
@@ -34,7 +34,11 @@ int main(){
 
 	//wiener
 
+	wienerFilter(I4, I5);
+
 	//particle detection
+
+
 
 	//find circles
 	//select particle
