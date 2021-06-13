@@ -7,16 +7,31 @@ using namespace std;
 
 int main(){
 
-	Mat src;
-	src = imread( "input/1.jpg", IMREAD_COLOR);
+	Mat src, I1, I2, I3, I4;
+	//image input
+
+	string path = samples::findFile("input/1.jpg");
+	src = imread( path, IMREAD_GRAYSCALE);
 	if(src.empty()){
 		return -1;
 	}
 
-	//tophat
-	//imagestretching
-	//gaussian filter
-	//imadjust
+	//top hat morphological operation
+
+	imtop_hat(src, I1, MORPH_ELLIPSE, 101);
+
+	//image sharpen by unsharp mask (kernel size 5)
+
+	imsharpen(I1, I2);
+
+	//gaussian blur
+
+	GaussianBlur(I2, I3, Size(5,5), 2);
+
+	//histogram stretching
+
+	imadjust(I3, I4);
+
 	//wiener
 
 	//particle detection
@@ -34,8 +49,7 @@ int main(){
 	//results
 
 
-	plotimage(src, "imagem", 30000);
+	plotimage(I4, "imagem", 10000);
 
-	cout<< "a";
 	return 0;
 }
