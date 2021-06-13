@@ -19,7 +19,20 @@ int main(){
 	//imadjust
 	//wiener
 
-	//resultados
+	//particle detection
+
+	//find circles
+	//select particle
+	//save the coordinates of first positions
+
+	//for other images
+		//find circles
+		//calculate distances
+		//get the minimum distace between the selected particle;
+		//save new position
+
+	//results
+
 
 	plotimage(src, "imagem", 30000);
 
