@@ -1,4 +1,5 @@
-src/main.o: ../src/main.cpp /usr/local/include/opencv4/opencv2/opencv.hpp \
+src/track.o: ../src/track.cpp ../src/track.h \
+ /usr/local/include/opencv4/opencv2/opencv.hpp \
  /usr/local/include/opencv4/opencv2/opencv_modules.hpp \
  /usr/local/include/opencv4/opencv2/core.hpp \
  /usr/local/include/opencv4/opencv2/core/cvdef.h \
@@ -101,8 +102,9 @@ src/main.o: ../src/main.cpp /usr/local/include/opencv4/opencv2/opencv.hpp \
  /usr/local/include/opencv4/opencv2/stitching/detail/camera.hpp \
  /usr/local/include/opencv4/opencv2/video.hpp \
  /usr/local/include/opencv4/opencv2/video/tracking.hpp \
- /usr/local/include/opencv4/opencv2/video/background_segm.hpp \
- ../src/functions.h ../src/track.h
+ /usr/local/include/opencv4/opencv2/video/background_segm.hpp
+
+../src/track.h:
 
 /usr/local/include/opencv4/opencv2/opencv.hpp:
 
@@ -311,7 +313,3 @@ src/main.o: ../src/main.cpp /usr/local/include/opencv4/opencv2/opencv.hpp \
 /usr/local/include/opencv4/opencv2/video/tracking.hpp:
 
 /usr/local/include/opencv4/opencv2/video/background_segm.hpp:
-
-../src/functions.h:
-
-../src/track.h:

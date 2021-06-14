@@ -1,6 +1,7 @@
 #include <iostream>
 #include <opencv2/opencv.hpp>
 #include "functions.h"
+#include "track.h"
 
 using namespace cv;
 using namespace std;
@@ -8,6 +9,7 @@ using namespace std;
 int main(){
 
 	Mat src, I1, I2, I3, I4, I5;
+	vector<Vec3i> beads;
 	//image input
 
 	string path = samples::findFile("input/1.jpg");
@@ -34,11 +36,14 @@ int main(){
 
 	//wiener
 
-	wienerFilter(I4, I5);
+	//wienerFilter(I4, I5);
 
 	//particle detection
 
 	//find circles
+
+	findcircles(I4, beads, 12, 15, 5);
+
 	//select particle
 	//save the coordinates of first positions
 
@@ -51,7 +56,7 @@ int main(){
 	//results
 
 
-	plotimage(I5, "imagem", 10000);
+	plotimage(I4, "imagem", 10000);
 
 	return 0;
 }
