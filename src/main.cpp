@@ -38,8 +38,6 @@ int main(){
 
 	//particle detection
 
-
-
 	//find circles
 	//select particle
 	//save the coordinates of first positions
@@ -53,7 +51,7 @@ int main(){
 	//results
 
 
-	plotimage(I4, "imagem", 10000);
+	plotimage(I5, "imagem", 10000);
 
 	return 0;
 }

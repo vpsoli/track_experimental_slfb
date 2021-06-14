@@ -62,8 +62,6 @@ void imadjust(Mat& src,Mat& dst, int tol, Vec2i in, Vec2i out){
 	// Stretching
 	float scale = float(out[1] - out[0]) / float(in[1] - in[0]);
 
-	imshow("name", dst);
-	waitKey(0);
 	for (int r = 0; r < dst.rows; ++r){
 		for (int c = 0; c < dst.cols; ++c){
 			int vs = max(src.at<uchar>(r, c) - in[0], 0);
@@ -74,22 +72,43 @@ void imadjust(Mat& src,Mat& dst, int tol, Vec2i in, Vec2i out){
 }
 void wienerFilter(Mat& src,Mat& dst, const Size& kernel_size, double noise_intesity){
 
-	Mat1f filtered_src,
-		  sq_box_filtered_src,
-		  variance;
+	//int width = src.cols, height = src.rows;
+	Mat1d filtered_src = src,
+		  mean = src,
+		  sq_box_filtered_src = src,
+		  variance, average_variance;
+
 	src.copyTo(dst);
 
-	/*
-	boxFilter(src, filtered_src, CV_64F, kernel_size, Point(-1,-1),true);
-	sqrBoxFilter(src, sq_box_filtered_src, CV_64F, kernel_size, Point(-1,-1), true, BORDER_REPLICATE);
+	//src.copyTo(filtered_src);
+	//src.copyTo(sq_box_filtered_src);
+
+	boxFilter(src, filtered_src, CV_64F, kernel_size, Point(-1,-1),true,BORDER_REPLICATE);
+	sqrBoxFilter(src, sq_box_filtered_src, CV_64F, kernel_size, Point(-1,-1),true,BORDER_REPLICATE);
+
+	filtered_src.copyTo(mean);
+
 	variance = sq_box_filtered_src - filtered_src.mul(filtered_src);
 
-	if(noise_intesity == -1.0){
-		reduce(variance, variance, 1, REDUCE_SUM, -1);
-		reduce(variance, variance, 0, REDUCE_SUM, -1);
-		noise_intesity = variance.at<float>(0,0);
-	}*/
-	cout<< noise_intesity;
+	if(noise_intesity < 0){
+		reduce(variance, average_variance, 1, REDUCE_SUM, -1);
+		reduce(average_variance, average_variance, 0, REDUCE_SUM, -1);
+		noise_intesity = variance.at<float>(0,0)/(float)(src.rows*src.cols);
+	}
+
+	imshow("imagem", variance);
+	waitKey(0);
+
+	cout << noise_intesity;
+
+	for (int r = 0; r < src.rows; ++r){
+		// get row pointers
+		for (int c = 0; c < src.cols; ++c) {
+			dst.at<uchar>(r,c) =
+			saturate_cast<uchar>(mean.at<double>(r,c) + max( 0.0, variance.at<double>(r,c) - noise_intesity)*
+			max(variance.at<double>(r,c),noise_intesity)*(src.at<uchar>(r,c) - mean.at<double>(r,c)));
+		}
+	}
 
 }
 /*void imwiener(){
