@@ -29,16 +29,21 @@ int selectbyproximity(vector<Vec3f>& a77ay,Point p0int, int radius){
 	double distance = 0.0,
 		   anterior_instance_distance,
 		   actual_instance_distance;
-	int anterior_instance = 0;
-	for(uint i=1;i<a77ay.size();i++){
+	int anterior_instance = -1;
+	for(uint i=0;i<a77ay.size();i++){
 		distance = euclideandistance(Point(a77ay[i][0],a77ay[i][1]), p0int);
 		if(distance < radius){
 			actual_instance_distance = distance;
-			anterior_instance_distance =
-					euclideandistance( Point(a77ay[anterior_instance][0],
-											 a77ay[anterior_instance][1]),
-											 p0int);
-			if(actual_instance_distance < anterior_instance_distance){
+			if(anterior_instance >= 0){
+				anterior_instance_distance =
+				euclideandistance( Point(a77ay[anterior_instance][0],
+										 a77ay[anterior_instance][1]),
+										 p0int);
+
+				if(actual_instance_distance <= anterior_instance_distance){
+					anterior_instance = i;
+				}
+			}else{
 				anterior_instance = i;
 			}
 		}

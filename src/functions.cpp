@@ -96,10 +96,8 @@ void wienerFilter(Mat& src,Mat& dst, const Size& kernel_size, double noise_intes
 		noise_intesity = variance.at<float>(0,0)/(float)(src.rows*src.cols);
 	}
 
-	imshow("imagem", variance);
-	waitKey(0);
-
-	cout << noise_intesity;
+	//imshow("imagem", variance);
+	//waitKey(0);
 
 	for (int r = 0; r < src.rows; ++r){
 		// get row pointers
@@ -111,6 +109,3 @@ void wienerFilter(Mat& src,Mat& dst, const Size& kernel_size, double noise_intes
 	}
 
 }
-/*void imwiener(){
-
-}*/

@@ -6,16 +6,19 @@
 CPP_SRCS += \
 ../src/functions.cpp \
 ../src/main.cpp \
+../src/prepare_file.cpp \
 ../src/track.cpp 
 
 OBJS += \
 ./src/functions.o \
 ./src/main.o \
+./src/prepare_file.o \
 ./src/track.o 
 
 CPP_DEPS += \
 ./src/functions.d \
 ./src/main.d \
+./src/prepare_file.d \
 ./src/track.d 
 
 

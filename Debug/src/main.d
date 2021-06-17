@@ -102,7 +102,7 @@ src/main.o: ../src/main.cpp /usr/local/include/opencv4/opencv2/opencv.hpp \
  /usr/local/include/opencv4/opencv2/video.hpp \
  /usr/local/include/opencv4/opencv2/video/tracking.hpp \
  /usr/local/include/opencv4/opencv2/video/background_segm.hpp \
- ../src/functions.h ../src/track.h
+ ../src/functions.h ../src/track.h ../src/prepare_file.h
 
 /usr/local/include/opencv4/opencv2/opencv.hpp:
 
@@ -315,3 +315,5 @@ src/main.o: ../src/main.cpp /usr/local/include/opencv4/opencv2/opencv.hpp \
 ../src/functions.h:
 
 ../src/track.h:
+
+../src/prepare_file.h:
