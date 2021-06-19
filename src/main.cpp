@@ -53,7 +53,7 @@ int main(){
 
 	//select particle
 
-	particle_id = selectbyproximity(beads, Point(src.cols - 200,src.rows/2), 13);
+	particle_id = selectbyproximity(beads, Point(src.cols/2, src.rows - 100), 25);
 	plotcircle(src, IC2, beads[particle_id]);
 
 	//save the coordinates of first positions
@@ -75,11 +75,18 @@ int main(){
 	createtable(file_name, field);
 	inputentry(file_name, entry);
 
+	imwrite("output/"+to_string(1)+".jpg",IC2);
+
 	//for other images
-	for(size_t i=2;i < 30; i++){
+	for(size_t i=2;i <= 600; i++){
+
+		if(i == 43){
+			continue;
+		}
+
 		//find circles
 
-		string path = samples::findFile("input/1.jpg");
+		string path = samples::findFile("input/"+ to_string(i) +".jpg");
 		src = imread( path, IMREAD_COLOR);
 		if(src.empty()){
 			return -1;
@@ -90,18 +97,13 @@ int main(){
 		imsharpen(gray_scale_src, gray_scale_src);
 		GaussianBlur(gray_scale_src, gray_scale_src, Size(5,5), 2);
 		imadjust(gray_scale_src, gray_scale_src);
-		wienerFilter(gray_scale_src, gray_scale_src);
-		findcircles(gray_scale_src, beads, 13, 6, 10,250);
+		//wienerFilter(gray_scale_src, gray_scale_src);
+		findcircles(gray_scale_src, beads, 13, 7, 5,200);
 
 		//calculate distances
 		//get the minimum distance between the selected particle;
 
-		particle_id = selectbyproximity(beads, Point(entry[1],entry[2]), beads[0][2]+3);
-
-		if(particle_id < 0){
-			cout << "Não há particula próxima.";
-			return -1;
-		}
+		particle_id = selectbyproximity(beads, Point(entry[1],entry[2]), 100);
 
 		//save new position
 		entry.clear();
@@ -111,19 +113,22 @@ int main(){
 
 		inputentry(file_name, entry);
 
-		cout << "Progress: " << i * 100/30 << "%.\n";
+		cout << "Progress: " << i * 100/600 << "%.\n";
+		plotcircles(src, src, beads);
+		plotcircle(src, src, beads[particle_id]);
+
+		//namedWindow("fig 1.", WINDOW_AUTOSIZE);
+		//namedWindow("fig 2.", WINDOW_AUTOSIZE);
+		//imshow("fig 1.", src);
+
+		imwrite("output/"+to_string(i)+".jpg",src);
+		beads.clear();src.deallocate();gray_scale_src.deallocate();
 	}
 
 	cout << "Progress: 100%. Processamento concluido.";
 
 	//results
 
-	//namedWindow("fig 1.", WINDOW_AUTOSIZE);
-	namedWindow("fig 2.", WINDOW_AUTOSIZE);
-	//imshow("fig 1.", src);
-	imshow("fig 2.", gray_scale_src);
-
-	waitKey(0);
 
 	//plotimage(src, "imagem", 10000);
 

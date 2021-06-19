@@ -10,7 +10,7 @@ void plotcircles(Mat& src, Mat& dst, vector<Vec3f>& circles){
 		x_center = circles[i][0];
 		y_center = circles[i][1];
 		radius   = circles[i][2];
-		circle(dst, Point(x_center,y_center), radius, Scalar( 0, 100, 0), 1);
+		circle(dst, Point(x_center,y_center), radius, Scalar( 0, 100, 0), 2);
 	}
 }
 void plotcircle(Mat& src, Mat& dst, Vec3f& circle_0, Scalar color){
@@ -19,10 +19,10 @@ void plotcircle(Mat& src, Mat& dst, Vec3f& circle_0, Scalar color){
 		radius   = circle_0[2];
 
 	src.copyTo(dst);
-	circle( dst, Point(x_center,y_center), radius, color, 1);
+	circle( dst, Point(x_center,y_center), radius, color, 7);
 }
 double euclideandistance(Point a, Point b){
-	return sqrt(pow(double(a.x-b.x),0.5) + pow(double(a.y-b.y),0.5));
+	return sqrt(pow(double(a.x-b.x),2.0) + pow(double(a.y-b.y),2.0));
 }
 
 int selectbyproximity(vector<Vec3f>& a77ay,Point p0int, int radius){
@@ -30,7 +30,7 @@ int selectbyproximity(vector<Vec3f>& a77ay,Point p0int, int radius){
 		   anterior_instance_distance,
 		   actual_instance_distance;
 	int anterior_instance = -1;
-	for(uint i=0;i<a77ay.size();i++){
+	for(size_t i=0;i<a77ay.size();i++){
 		distance = euclideandistance(Point(a77ay[i][0],a77ay[i][1]), p0int);
 		if(distance < radius){
 			actual_instance_distance = distance;
